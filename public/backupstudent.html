@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="studentdashboard.css">
+</head>
+<body>
+    <script src="../authCheck.js"></script>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="user-profile">
+                <div class="avatar sidebar-user-avatar" id="avatarUpload">
+                    <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <h3 class="sidebar-user-name" id="userNameDisplay"></h3>
+                <div class="user-course sidebar-user-info"></div>
+                <div class="user-role" id="userRoleDisplay">Student</div>
+            </div>
+        </div>
+            
+            <div class="menu-label">Navigation</div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-content="dashboard">
+                    <i class="fas fa-home"></i> <span class="nav-text">Dashboard</span>
+                </li>
+
+                <li class="nav-item" data-content="enroll">
+                    <i class="fas fa-graduation-cap"></i> <span class="nav-text">Enroll Now</span>
+                </li>
+
+                <li class="nav-item" data-content="announcements">
+                    <i class="fas fa-bullhorn"></i> <span class="nav-text">Announcements</span> 
+                </li>
+                <li class="nav-item" data-content="schedule">
+                    <i class="fas fa-calendar"></i> <span class="nav-text">Schedule</span>
+                </li>
+                <li class="nav-item" data-content="grades">
+                    <i class="fas fa-chart-bar"></i> <span class="nav-text">Grades</span>
+                </li>
+                <li class="nav-item" data-content="messages">
+                    <i class="fas fa-comments"></i> <span class="nav-text">Messages</span> 
+                </li>
+
+                <div class="menu-label">Account</div>
+                <li class="nav-item" data-content="profile">
+                    <i class="fas fa-user-circle"></i> <span class="nav-text">Profile</span>
+                </li>
+                <li class="nav-item" data-content="settings">
+                    <i class="fas fa-cog"></i> <span class="nav-text">Settings</span>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="mode-toggle">
+                    <label>Dark Mode</label>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="logout-text">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header>
+                <div class="welcome-message">Welcome</div>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+                    <!-- Notification Container -->
+                    <div class="notification-container">
+                        <div class="notification-icon" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                            <div class="notification-count" id="notificationCount">3</div>
+                        </div>
+                        
+                        <!-- Notification Dropdown -->
+                        <div class="notification-dropdown" id="notificationDropdown">
+                            <div class="notification-header">
+                                <div class="notification-title">Notifications</div>
+                                <button class="mark-all" id="markAllRead">Mark all as read</button>
+                            </div>
+                            <div class="notification-list" id="notificationList">
+                                <!-- Notifications will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+
+            <div class="content-section active" id="dashboard">
+                <div class="dashboard-grid">
+            <div class="dashboard-card" onclick="handleQuickEnroll()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <span style="margin-left: 15px;">Quick Enroll</span>
+                    </div>
+                    <div class="card-options">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Easily enroll in available courses for the upcoming semester. Browse and register for classes quickly.</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card" onclick="handleShowAnnouncement()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon" style="background-color: #e74c3c;">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <span style="margin-left: 15px;">Show Announcement</span>
+                    </div>
+                    <div class="card-options">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Stay updated with the latest announcements from your instructors and academic departments.</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card" onclick="handleViewGrades()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon" style="background-color: #27ae60;">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span style="margin-left: 15px;">View Grades</span>
+                    </div>
+                    <div class="card-options">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Check your academic performance and view detailed grade reports for all your courses.</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card" onclick="handleUpcomingEvents()">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon" style="background-color: #f39c12;">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <span style="margin-left: 15px;">Upcoming Events</span>
+                    </div>
+                    <div class="card-options">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Check your schedule for upcoming classes, exams, and important academic events.</p>
+                </div>
+            </div>
+        </div>
+            </div>
+
+            <div class="content-section" id="enroll">
+                <div class="section-header">
+            <h2><i class="fas fa-graduation-cap"></i>Course Enrollment</h2>
+            <p class="section-subtitle">Select your desired program and academic details</p>
+        </div>
+        
+        <div style="text-align: center; padding: 20px;">
+            <button class="enroll-btn" onclick="toggleEnrollmentForm()">
+                <i class="fas fa-plus-circle"></i>
+                Enroll Now
+            </button>
+        </div>
+
+        <div class="enrollment-container" id="enrollmentContainer">
+            <form id="enrollmentForm">
+                <!-- Program Selection -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-book"></i>
+                        Choose Your Program
+                    </div>
+                    <div class="selection-grid">
+                        <label class="selection-card" for="bsit">
+                            <input type="radio" id="bsit" name="program" value="BSIT">
+                            <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                            <div class="card-title">BSIT</div>
+                            <div class="card-description">Bachelor of Science in Information Technology</div>
+                            <div class="selection-indicator"><i class="fas fa-check"></i></div>
+                        </label>
+
+                        <label class="selection-card" for="bscs">
+                            <input type="radio" id="bscs" name="program" value="BSCS">
+                            <div class="card-icon"><i class="fas fa-desktop"></i></div>
+                            <div class="card-title">BSCS</div>
+                            <div class="card-description">Bachelor of Science in Computer Science</div>
+                            <div class="selection-indicator"><i class="fas fa-check"></i></div>
+                        </label>
+
+                        <label class="selection-card" for="bsis">
+                            <input type="radio" id="bsis" name="program" value="BSIS">
+                            <div class="card-icon"><i class="fas fa-network-wired"></i></div>
+                            <div class="card-title">BSIS</div>
+                            <div class="card-description">Bachelor of Science in Information Systems</div>
+                            <div class="selection-indicator"><i class="fas fa-check"></i></div>
+                        </label>
+
+                        <label class="selection-card" for="bsba">
+                            <input type="radio" id="bsba" name="program" value="BSBA">
+                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="card-title">BSBA</div>
+                            <div class="card-description">Bachelor of Science in Business Administration</div>
+                            <div class="selection-indicator"><i class="fas fa-check"></i></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Year Level Selection -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-layer-group"></i>
+                        Year Level
+                    </div>
+                    <div class="year-level-grid">
+                        <label class="year-card" for="year1">
+                            <input type="radio" id="year1" name="yearLevel" value="1st Year">
+                            <div class="year-number">1st</div>
+                            <div class="year-label">1st Year</div>
+                        </label>
+
+                        <label class="year-card" for="year2">
+                            <input type="radio" id="year2" name="yearLevel" value="2nd Year">
+                            <div class="year-number">2nd</div>
+                            <div class="year-label">2nd Year</div>
+                        </label>
+
+                        <label class="year-card" for="year3">
+                            <input type="radio" id="year3" name="yearLevel" value="3rd Year">
+                            <div class="year-number">3rd</div>
+                            <div class="year-label">3rd Year</div>
+                        </label>
+
+                        <label class="year-card" for="year4">
+                            <input type="radio" id="year4" name="yearLevel" value="4th Year">
+                            <div class="year-number">4th</div>
+                            <div class="year-label">4th Year</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Academic Term Selection -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Academic Term
+                    </div>
+                    <div class="term-grid">
+                        <label class="term-card" for="term1">
+                            <input type="radio" id="term1" name="academicTerm" value="1st Term">
+                            <div class="term-icon"><i class="fas fa-calendar-day"></i></div>
+                            <div class="term-name">1st Term</div>
+                            <div class="term-description">September - December</div>
+                        </label>
+
+                        <label class="term-card" for="term2">
+                            <input type="radio" id="term2" name="academicTerm" value="2nd Term">
+                            <div class="term-icon"><i class="fas fa-calendar-week"></i></div>
+                            <div class="term-name">2nd Term</div>
+                            <div class="term-description">January - April</div>
+                        </label>
+
+                        <label class="term-card" for="term3">
+                            <input type="radio" id="term3" name="academicTerm" value="3rd Term">
+                            <div class="term-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="term-name">3rd Term</div>
+                            <div class="term-description">May - August</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Tuition Fees Display -->
+<div class="form-section" id="tuitionFeesSection" style="display: none;">
+    <div class="form-section-title">
+        <i class="fas fa-money-bill-wave"></i>
+        Tuition Fees Breakdown
+    </div>
+    <div class="tuition-container">
+        <div class="fee-breakdown">
+            <div class="fee-item">
+                <span class="fee-label">Tuition Fee:</span>
+                <span class="fee-value" id="tuitionFee">₱0.00</span>
+            </div>
+            <div class="fee-item">
+                <span class="fee-label">Laboratory Fee:</span>
+                <span class="fee-value" id="laboratoryFee">₱0.00</span>
+            </div>
+            <div class="fee-item">
+                <span class="fee-label">Miscellaneous Fee:</span>
+                <span class="fee-value" id="miscellaneousFee">₱0.00</span>
+            </div>
+            <div class="fee-total">
+                <span class="total-label">Total Amount:</span>
+                <span class="total-value" id="totalFees">₱0.00</span>
+            </div>
+        </div>
+        <div class="payment-details">
+            <h4><i class="fas fa-info-circle"></i> Payment Instructions</h4>
+            <p>Please make payment to the following account and upload your receipt:</p>
+            <div class="bank-info">
+                <strong>Bank Details:</strong><br>
+                Bank Name: Sample University Bank<br>
+                Account Number: 1234-5678-9012<br>
+                Account Name: Sample University
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Receipt Upload -->
+<div class="form-section" id="paymentReceiptSection" style="display: none;">
+    <div class="form-section-title">
+        <i class="fas fa-upload"></i>
+        Upload Payment Receipt
+    </div>
+    <div class="upload-container">
+        <input type="file" id="paymentReceipt" name="paymentReceipt" accept=".jpg,.jpeg,.png,.pdf" required style="display: none;">
+        <div class="upload-area" onclick="document.getElementById('paymentReceipt').click();">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <div class="upload-text">
+                <strong>Click to upload payment receipt</strong>
+                <p>Supports: JPG, PNG, PDF (Max 5MB)</p>
+            </div>
+        </div>
+        <div class="file-info" id="fileInfo" style="display: none;">
+            <i class="fas fa-file"></i>
+            <span id="fileName"></span>
+            <button type="button" onclick="removeFile()" class="remove-file-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+                <div class="enrollment-summary">
+    <div class="summary-title">
+        <i class="fas fa-clipboard-list"></i>
+        Enrollment Summary
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Student Name:</span>
+        <span class="summary-value" id="studentName">Loading...</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Student ID:</span>
+        <span class="summary-value" id="studentId">Loading...</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Selected Program:</span>
+        <span class="summary-value" id="selectedProgram">Not selected</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Year Level:</span>
+        <span class="summary-value" id="selectedYear">Not selected</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Academic Term:</span>
+        <span class="summary-value" id="selectedTerm">Not selected</span>
+    </div>
+    <div class="summary-item">
+        <span class="summary-label">Total Fees:</span>
+        <span class="summary-value" id="summaryTotalFees">₱0.00</span>
+    </div>
+</div>
+
+                
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-undo"></i>
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Enrollment
+                    </button>
+                </div>
+
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Enrollment Submitted Successfully!</strong>
+                    <p>Your enrollment request has been submitted. You will receive a confirmation email shortly.</p>
+                </div>
+            </form>
+        </div>
+            </div>
+
+           
+
+            <!-- Modal for Curriculum Display -->
+    <div class="modal-overlay" id="curriculumModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Your Enrolled Subjects
+                </div>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="curriculum-container">
+                <div class="header">YOUR ENROLLMENT CONFIRMATION</div>
+                <div class="student-info-header">
+        <div class="student-details">
+            <div class="student-name" id="modalStudentName">STUDENT NAME</div>
+            <div class="student-id" id="modalStudentId">Student ID: 0000-0000-0000</div>
+        </div>
+    </div>
+                <div class="title" id="modalCourseTitle">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</div>
+                <div class="year-term">
+                    <span id="modalYearLevel">THIRD YEAR</span><br>
+                    <span id="modalTermLevel">3RD TERM</span>
+                </div>
+                
+                <div class="enrollment-info">
+                    <div class="info-item">
+                        <div class="info-label">Program</div>
+                        <div class="info-value" id="modalProgram">BSIT</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Year Level</div>
+                        <div class="info-value" id="modalYear">3rd Year</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Term</div>
+                        <div class="info-value" id="modalTerm">3rd Term</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Total Units</div>
+                        <div class="info-value" id="totalUnits">18</div>
+                    </div>
+                </div>
+                
+                <table id="curriculumTable">
+                    <thead class="table-header">
+                        <tr>
+                            <th style="width: 80px;">SUBJECT<br>CODE</th>
+                            <th>DESCRIPTION</th>
+                            <th style="width: 60px;">SEC</th>
+                            <th style="width: 60px;">UNITS</th>
+                            <th style="width: 80px;">PRE-<br>REQ</th>
+                            <th style="width: 80px;">DAY</th>
+                            <th style="width: 120px;">TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalTableBody">
+                        <!-- Subjects will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal()">
+                    <i class="fas fa-check"></i>
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+        
+
+            <div class="content-section" id="announcements">
+                <div class="announcements-container">
+            <div class="announcements-header">
+                <i class="fas fa-bullhorn"></i>
+                <h2>Announcements</h2>
+                <div class="announcement-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="urgent-count">0 Urgent</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span id="unread-count">0 Unread</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="announcements-content">
+                <div class="announcements-filters">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="urgent">Urgent</button>
+                        <button class="filter-btn" data-filter="important">Important</button>
+                        <button class="filter-btn" data-filter="general">General</button>
+                        <button class="filter-btn" data-filter="unread">Unread</button>
+                    </div>
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Search announcements..." id="announcement-search">
+                    </div>
+                </div>
+
+                <div class="announcements-list" id="announcements-list">
+                    <!-- Loading state -->
+                    <div class="loading-state" id="loading-state">
+                        <div class="loading-spinner"></div>
+                        <span>Loading announcements...</span>
+                    </div>
+
+                    <!-- No announcements state -->
+                    <div class="no-announcements" id="no-announcements" style="display: none;">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>No Announcements Found</h3>
+                        <p>There are currently no announcements to display. Check back later for updates from your faculty.</p>
+                    </div>
+
+                    <!-- Announcements will be dynamically loaded here by facultydashboard.js -->
+                </div>
+
+                <div class="pagination" id="pagination" style="display: none;">
+                    <button class="pagination-btn" id="prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <div class="pagination-info">
+                        <span id="page-info">Page 1 of 1</span>
+                    </div>
+                    <button class="pagination-btn" id="next-btn" disabled>
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+            </div>
+
+            <div class="content-section" id="schedule">
+        <h2><i class="fas fa-calendar-alt"></i> Schedule</h2>
+        <div class="card-content">
+            <p>Your class schedule, upcoming events, and important academic dates. Plan your time and stay organized with your academic calendar.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalEvents">0</div>
+                    <div class="stat-label">Total Events</div>
+                </div>
+                <div class="stat-card" style="background: #27ae60;">
+                    <div class="stat-number" id="upcomingEvents">0</div>
+                    <div class="stat-label">Upcoming</div>
+                </div>
+                <div class="stat-card" style="background: #e74c3c;">
+                    <div class="stat-number" id="overdueEvents">0</div>
+                    <div class="stat-label">Overdue</div>
+                </div>
+                <div class="stat-card" style="background: #f39c12;">
+                    <div class="stat-number" id="thisWeekEvents">0</div>
+                    <div class="stat-label">This Week</div>
+                </div>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-main">
+                    <div class="calendar-header">
+                        <div class="calendar-nav">
+                            <button class="nav-btn" id="prevMonth">‹</button>
+                            <div class="current-month" id="currentMonth"></div>
+                            <button class="nav-btn" id="nextMonth">›</button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="event-sidebar">
+                    <button class="add-event-btn" id="addEventBtn">+ Add New Event</button>
+                    
+                    <div class="event-form" id="eventForm">
+                        <div class="form-group">
+                            <label for="eventTitle">Event Title</label>
+                            <input type="text" id="eventTitle" placeholder="Enter event title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDate">Date</label>
+                            <input type="date" id="eventDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventTime">Time</label>
+                            <input type="time" id="eventTime">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventType">Type</label>
+                            <select id="eventType">
+                                <option value="class">Class</option>
+                                <option value="exam">Exam</option>
+                                <option value="assignment">Assignment</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea id="eventDescription" rows="3" placeholder="Event description (optional)"></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-primary" id="saveEventBtn">Save Event</button>
+                            <button class="btn btn-secondary" id="cancelEventBtn">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="events-list">
+                        <div class="events-list-header">Upcoming Events</div>
+                        <div id="eventsList">
+                            <!-- Events will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+             <div class="content-section" id="grades">
+                <h2><i class="fas fa-graduation-cap"></i>Academic Grades</h2>
+        
+                <div class="grades-content">
+            <!-- First Trimester -->
+            <div class="semester-section">
+                <h3 class="semester-title">FIRST TRIMESTER</h3>
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>CODE</th>
+                            <th>SUBJECT COURSE</th>
+                            <th>PREREQUISITE</th>
+                            <th>LEC<br>(UNITS)</th>
+                            <th>LAB<br>(UNITS)</th>
+                            <th>TOTAL</th>
+                            <th>GRADES</th>
+                            <th>TERM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="subject-code">IT9311</td>
+                            <td class="subject-title">Information Assurance and Security 2</td>
+                            <td class="prerequisite">IT9225</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td class="grade excellent">1.25</td>
+                            <td class="term-code">TT2425</td>
+                        </tr>
+                        <tr>
+                            <td class="subject-code">IT9312</td>
+                            <td class="subject-title">Social Issues and Professional Practice</td>
+                            <td class="prerequisite">NONE</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td class="grade excellent">1.00</td>
+                            <td class="term-code">TT2425</td>
+                        </tr>
+                        <tr>
+                            <td class="subject-code">GE311</td>
+                            <td class="subject-title">Art Appreciation</td>
+                            <td class="prerequisite">NONE</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td class="grade excellent">1.25</td>
+                            <td class="term-code">TT2425</td>
+                        </tr>
+                        <tr>
+                            <td class="subject-code">IT Elec4</td>
+                            <td class="subject-title">Integrative Programming Technologies 2</td>
+                            <td class="prerequisite">IT9221</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td class="grade excellent">1.00</td>
+                            <td class="term-code">TT2425</td>
+                        </tr>
+                        <tr>
+                            <td class="subject-code">GE312</td>
+                            <td class="subject-title">The Contemporary World</td>
+                            <td class="prerequisite">NONE</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>3</td>
+                            <td class="grade excellent">1.25</td>
+                            <td class="term-code">TT2425</td>
+                        </tr>
+                        <tr>
+                            <td class="subject-code">TP13</td>
+                            <td class="subject-title">PROFESSIONAL TRACK 3</td>
+                            <td class="prerequisite">2ND YEAR STANDING</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>3</td>
+                            <td class="grade excellent">1.29</td>
+                            <td class="term-code">TT2425</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="3"><strong>TOTAL</strong></td>
+                            <td><strong>16</strong></td>
+                            <td><strong>2</strong></td>
+                            <td><strong>18</strong></td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            
+
+            <!-- GPA Summary -->
+            <div class="gpa-summary">
+                <div class="gpa-card">
+                    <h3><i class="fas fa-chart-line"></i> Current Semester GPA</h3>
+                    <div class="gpa-value">1.19</div>
+                    <div class="gpa-status">Excellent Performance</div>
+                </div>
+                <div class="gpa-card">
+                    <h3><i class="fas fa-trophy"></i> Cumulative GPA</h3>
+                    <div class="gpa-value">1.22</div>
+                    <div class="gpa-status">Dean's List</div>
+                </div>
+                <div class="gpa-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Total Units Completed</h3>
+                    <div class="gpa-value">36</div>
+                    <div class="gpa-status">On Track</div>
+                </div>
+                <div class="gpa-card">
+                    <h3><i class="fas fa-percent"></i> Completion Rate</h3>
+                    <div class="gpa-value">45%</div>
+                    <div class="gpa-status">Program Progress</div>
+                </div>
+            </div>
+
+            <!-- Grade Legend -->
+            <div class="legend">
+                <div class="legend-title">
+                    <i class="fas fa-info-circle"></i>
+                    Grade Scale Legend
+                </div>
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div class="grade-indicator excellent-indicator">1.0</div>
+                        <span>1.00 - 1.25: Excellent</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="grade-indicator good-indicator">1.5</div>
+                        <span>1.50 - 1.75: Very Good</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="grade-indicator satisfactory-indicator">2.0</div>
+                        <span>2.00 - 2.25: Good</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="grade-indicator needs-improvement-indicator">3.0</div>
+                        <span>2.50 - 3.00: Satisfactory</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <div class="content-section" id="messages">
+                <div class="chat-container">
+        <!-- Left Panel - Contacts -->
+        <div class="contacts-panel" id="contactsPanel">
+            <div class="contacts-header">
+                <h3>Messages</h3>
+                <button class="new-chat-btn" onclick="showNewChatModal()">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="search-input" placeholder="Search contacts..." id="searchInput">
+                </div>
+                <div class="role-filters">
+                    <button class="role-tag active" onclick="filterByRole('all')">All</button>
+                    <button class="role-tag" onclick="filterByRole('faculty')">Faculty</button>
+                    <button class="role-tag" onclick="filterByRole('admin')">Admin</button>
+                    <button class="role-tag" onclick="filterByRole('registrar')">Registrar</button>
+                </div>
+            </div>
+
+            <div class="contacts-list" id="contactsList">
+                <!-- Contacts will be populated here -->
+            </div>
+        </div>
+
+        <!-- Right Panel - Chat -->
+        <div class="chat-panel">
+            <div class="chat-header" id="chatHeader" style="display: none;">
+                <button class="mobile-back-btn" onclick="showContactsList()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="chat-user-info">
+                    <div class="chat-avatar" id="chatAvatar">JM</div>
+                    <div class="chat-user-details">
+                        <h4 id="chatUserName">Select a contact</h4>
+                        <p id="chatUserRole">to start messaging</p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="chat-action-btn" title="Voice Call">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="chat-action-btn" title="Video Call">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="chat-action-btn" title="More Options">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="empty-chat">
+                    <i class="fas fa-comments"></i>
+                    <h3>Welcome to Academic Chat</h3>
+                    <p>Select a contact from the left panel to start a conversation with faculty, administrators, or professors.</p>
+                </div>
+            </div>
+
+            <div class="chat-input-container" id="chatInputContainer" style="display: none;">
+                <div class="chat-input-wrapper">
+                    <textarea class="chat-input" placeholder="Type your message..." id="messageInput" rows="1"></textarea>
+                    <div class="input-actions">
+                        <button class="input-action-btn" title="Attach File">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <button class="input-action-btn" title="Emoji">
+                            <i class="fas fa-smile"></i>
+                        </button>
+                        <button class="input-action-btn send-btn" onclick="sendMessage()" title="Send Message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+
+            <div class="content-section" id="profile">
+        <h2 style="display: none;">Profile</h2>
+        <div class="profile-form-container">
+            <div class="profile-form-header">
+                <i class="fas fa-user-circle fa-lg"></i>
+                <h2>Complete Your Profile</h2>
+            </div>
+            
+            <div id="success-message" class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <span>Profile updated successfully!</span>
+            </div>
+            
+            
+            
+            <form id="profile-form">
+                <div class="profile-avatar-upload">
+                    <div class="profile-avatar" id="preview-avatar">
+                        <i class="fas fa-user"></i>
+                        <div class="avatar-upload-btn">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="avatar-file-input" accept="image/*">
+                        </div>
+                    </div>
+                    <span class="form-notice">Click the camera icon to upload a profile photo</span>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Personal Information</span>
+                    </div>
+                    <div class="form-content">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="firstName">First Name <span class="required-field">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name <span class="required-field">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="displayName">Display Name <span class="required-field">*</span></label>
+                            <input type="text" class="form-control" id="displayName" required>
+                            <span class="form-notice">This is how your name will appear on the platform</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required-field">*</span></label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth</label>
+                            <input type="date" class="form-control" id="dateOfBirth">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="homeAddress">Home Address</label>
+                            <textarea class="form-control" id="homeAddress" rows="3" placeholder="Enter your complete home address"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="postalCode">Postal Code</label>
+                                    <input type="text" class="form-control" id="postalCode">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="province">Province/State</label>
+                                    <input type="text" class="form-control" id="province">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <select class="form-control" id="country">
+                                        <option value="">Select your country</option>
+                                        <option value="philippines">Philippines</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Academic Information</span>
+                    </div>
+                    <div class="form-content">
+                        <div class="form-group">
+                            <label for="studentId">Student ID <span class="required-field">*</span></label>
+                            <input type="text" class="form-control" id="studentId" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="major">Major/Program <span class="required-field">*</span></label>
+                                    <select class="form-control" id="major" required>
+                                        <option value="">Select your major</option>
+                                        <option value="computer_science">Bachelor of Science in Computer Science</option>
+                                        <option value="information_technology">Bachelor of Science in Information Technology</option>
+                                        <option value="information_system">Bachelor of Science in Information Systems</option>
+                                        <option value="business_administration">Bachelor of Science in Business Administration</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="yearLevel">Year Level <span class="required-field">*</span></label>
+                                    <select class="form-control" id="yearLevel" required>
+                                        <option value="">Select year level</option>
+                                        <option value="1st_year">1st Year</option>
+                                        <option value="2nd_year">2nd Year</option>
+                                        <option value="3rd_year">3rd Year</option>
+                                        <option value="4th_year">4th Year</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>        
+
+           <div class="content-section" id="settings">
+        <h2>Settings</h2>
+        <p>Customize your dashboard preferences, notification settings, and account security options. Configure your learning environment.</p>
+        
+        <div class="settings-container">
+            <div class="settings-header">
+                <i class="fas fa-lock"></i>
+                <h3>Change Password</h3>
+            </div>
+            
+            <div class="settings-content">
+                <div class="password-form-container">
+                    <!-- Success/Error Messages -->
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i>
+                        Password changed successfully!
+                    </div>
+                    
+                    <div class="error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="errorText">Please check your current password and try again.</span>
+                    </div>
+
+                    <!-- Security Tips -->
+                    <div class="security-tips">
+                        <h4><i class="fas fa-shield-alt"></i>Password Security Tips</h4>
+                        <ul>
+                            <li>Use at least 8 characters with a mix of letters, numbers, and symbols</li>
+                            <li>Avoid using personal information or common words</li>
+                            <li>Don't reuse passwords from other accounts</li>
+                            <li>Consider using a password manager</li>
+                        </ul>
+                    </div>
+
+                    <form id="passwordChangeForm">
+                        <div class="form-section">
+                            <div class="form-section-title">
+                                <i class="fas fa-key"></i>
+                                Password Information
+                            </div>
+
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password <span class="required-field">*</span></label>
+                                <div class="password-field-wrapper">
+                                    <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                                    <i class="fas fa-eye password-toggle" onclick="togglePassword('currentPassword')"></i>
+                                </div>
+                                <div class="form-notice">Enter your current password to verify your identity</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword">New Password <span class="required-field">*</span></label>
+                                <div class="password-field-wrapper">
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                                    <i class="fas fa-eye password-toggle" onclick="togglePassword('newPassword')"></i>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="password-strength-bar" id="strengthBar"></div>
+                                </div>
+                                <div class="password-status" id="passwordStatus">Password strength: Not set</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password <span class="required-field">*</span></label>
+                                <div class="password-field-wrapper">
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                                    <i class="fas fa-eye password-toggle" onclick="togglePassword('confirmPassword')"></i>
+                                </div>
+                                <div class="password-match-indicator" id="matchIndicator"></div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Change Password
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script>
+       // Complete Dashboard Script with Authentication
+// Handles both authentication and all dashboard functionality
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("🎯 Dashboard loaded - checking authentication...");
+    
+    // ===== AUTHENTICATION FUNCTIONS =====
+    
+    // Check if user is authenticated
+    
+    
+    // ===== DASHBOARD INITIALIZATION =====
+    
+    // Initialize dashboard with offline support
+    function initializeDashboard() {
+        console.log("🏁 Initializing dashboard...");
+        
+        if (!checkAuthentication()) {
+            return;
+        }
+        
+        const user = getCurrentUser();
+        if (!user) {
+            console.log("❌ No user data found, redirecting to login...");
+            window.location.href = '../login.html';
+            return;
+        }
+        
+        console.log("👤 Current user:", user);
+        
+        // Get user info for display
+        const userName = user.username || user.name || 'User';
+        const userEmail = user.email || sessionStorage.getItem('userEmail') || '';
+        const userRole = user.role || 'Student';
+        
+        // Update UI with user info
+        const userNameElements = document.querySelectorAll('[data-user-name]');
+        userNameElements.forEach(el => {
+            el.textContent = userName;
+        });
+        
+        // Set user role
+        const userRoleElements = document.querySelectorAll('[data-user-role]');
+        userRoleElements.forEach(el => {
+            el.textContent = userRole;
+        });
+        
+        // Update specific elements
+        const userNameDisplay = document.getElementById('userNameDisplay');
+        const userRoleDisplay = document.getElementById('userRoleDisplay');
+        const userMenuName = document.getElementById('userMenuName');
+        const userMenuEmail = document.getElementById('userMenuEmail');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+
+        if (userNameDisplay) userNameDisplay.textContent = userName;
+        if (userRoleDisplay) userRoleDisplay.textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+        if (userMenuName) userMenuName.textContent = userName;
+        if (userMenuEmail) userMenuEmail.textContent = userEmail;
+        if (welcomeMessage) welcomeMessage.textContent = `Welcome, ${userName.split(' ')[0]}!`;
+        
+        // Load dashboard data with error handling
+        loadDashboardData();
+        
+        // Clear login flags
+        sessionStorage.removeItem('justLoggedIn');
+        sessionStorage.removeItem('skipInitialServerCheck');
+        
+        console.log("✅ Dashboard initialized successfully");
+    }
+    
+    // ===== UI FUNCTIONALITY =====
+
+// Sidebar toggle functionality
+const sidebar = document.getElementById('sidebar');
+const sidebarToggle = document.getElementById('sidebarToggle');
+if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+}
+
+// Navigation functionality
+const navItems = document.querySelectorAll('.nav-item[data-content]');
+const contentSections = document.querySelectorAll('.content-section');
+navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navItems.forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+        contentSections.forEach(section => section.classList.remove('active'));
+        const targetContent = item.getAttribute('data-content');
+        const targetSection = document.getElementById(targetContent);
+        if (targetSection) targetSection.classList.add('active');
+    });
+});
+
+// Dropdown functionality
+const coursesDropdown = document.getElementById('coursesDropdown');
+const coursesMenu = document.getElementById('coursesMenu');
+if (coursesDropdown && coursesMenu) {
+    coursesDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+        coursesMenu.classList.toggle('active');
+        coursesDropdown.classList.toggle('active');
+    });
+}
+
+// Dark mode toggle
+const darkModeToggle = document.getElementById('darkModeToggle');
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('change', function() {
+        document.body.classList.toggle('dark-mode');
+    });
+}
+
+// ===== NOTIFICATION SYSTEM =====
+const notificationsData = [
+    {
+        type: 'announcement',
+        message: '📢 Reminder: School will be closed this Friday.',
+        timestamp: 'Just now',
+        actionText: 'Dismiss'
+    },
+    {
+        type: 'grade',
+        message: '📝 New grade posted for Math 101.',
+        timestamp: '5 min ago',
+        actionText: 'View Grade'
+    },
+    {
+        type: 'schedule',
+        message: '📅 Your Physics class has been rescheduled.',
+        timestamp: '30 min ago',
+        actionText: 'View Schedule'
+    }
+];
+
+let notifications = [...notificationsData];
+let unreadCount = notifications.length;
+
+function renderNotifications() {
+    const container = document.querySelector('.notification-list');
+    const countEl = document.querySelector('.notification-count');
+    if (!container || !countEl) return;
+    container.innerHTML = '';
+
+    notifications.forEach((notif, index) => {
+        const item = document.createElement('div');
+        item.className = 'notification-item';
+        item.innerHTML = `
+            <div class="notification-text">
+                <span class="notification-message">${notif.message}</span>
+                <small class="notification-time">${notif.timestamp}</small>
+            </div>
+            <button class="notification-action">${notif.actionText}</button>
+        `;
+
+        item.querySelector('.notification-action').addEventListener('click', () => {
+            markAsRead(index);
+            showTempMessage(`Notification marked as read`, 'info');
+        });
+
+        container.appendChild(item);
+    });
+
+    countEl.textContent = unreadCount;
+    countEl.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+}
+
+function markAsRead(index) {
+    if (notifications[index]) {
+        notifications.splice(index, 1);
+        unreadCount = notifications.length;
+        renderNotifications();
+    }
+}
+
+function markAllAsRead() {
+    notifications = [];
+    unreadCount = 0;
+    renderNotifications();
+    showTempMessage('All notifications marked as read', 'success');
+}
+
+function addRandomNotification() {
+    const types = ['announcement', 'grade', 'schedule'];
+    const messages = [
+        '📢 Don’t forget your ID for tomorrow’s exam.',
+        '📝 Quiz 2 results are out for Chemistry.',
+        '📅 PE class moved to the gym. Check schedule.'
+    ];
+
+    const i = Math.floor(Math.random() * messages.length);
+    notifications.unshift({
+        type: types[i],
+        message: messages[i],
+        timestamp: 'Just now',
+        actionText: 'Dismiss'
+    });
+
+    unreadCount = notifications.length;
+    renderNotifications();
+    showTempMessage('New notification received', 'info');
+}
+
+setInterval(addRandomNotification, 30000); // Simulate new notification every 30 sec
+
+renderNotifications();
+
+// Notification dropdown
+const notificationIcon = document.getElementById('notificationIcon');
+const notificationDropdown = document.getElementById('notificationDropdown');
+if (notificationIcon && notificationDropdown) {
+    notificationIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle('show');
+        const userMenuDropdown = document.getElementById('userMenuDropdown');
+        if (userMenuDropdown) userMenuDropdown.classList.remove('show');
+    });
+}
+
+// Mark all notifications as read
+const markAllBtn = document.querySelector('.mark-all');
+if (markAllBtn) {
+    markAllBtn.addEventListener('click', markAllAsRead);
+}
+
+// User menu dropdown
+const userMenuToggle = document.getElementById('userMenuToggle');
+const userMenuDropdown = document.getElementById('userMenuDropdown');
+if (userMenuToggle && userMenuDropdown) {
+    userMenuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userMenuDropdown.classList.toggle('show');
+        if (notificationDropdown) notificationDropdown.classList.remove('show');
+    });
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function() {
+    if (notificationDropdown) notificationDropdown.classList.remove('show');
+    if (userMenuDropdown) userMenuDropdown.classList.remove('show');
+});
+
+// Prevent dropdown close when clicking inside
+if (notificationDropdown) {
+    notificationDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+}
+if (userMenuDropdown) {
+    userMenuDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+}
+
+    // ===== IMPROVED AVATAR FUNCTIONALITY =====
+    
+    // Generate unique storage key for user avatar
+    function getUserAvatarKey(userId) {
+        return `userAvatar_${userId}`;
+    }
+    
+    // Load user-specific avatar
+    function loadUserAvatar(userId) {
+        const avatarKey = getUserAvatarKey(userId);
+        const savedAvatar = localStorage.getItem(avatarKey);
+        
+        if (savedAvatar) {
+            updateAllAvatars(savedAvatar);
+            // Also update chat avatar if chat system is loaded
+            if (window.chat && window.chat.currentUser) {
+                window.chat.currentUser.avatar = savedAvatar;
+            }
+        }
+    }
+    
+    
+
+    // ===== CHAT AVATAR INTEGRATION =====
+    
+    // Function to update chat avatars (called from chat.js)
+    window.updateChatAvatars = function(imageData) {
+        // Update any chat-specific avatar elements
+        const chatAvatars = document.querySelectorAll('.chat-avatar, .message-avatar');
+        chatAvatars.forEach(avatar => {
+            if (avatar.tagName === 'IMG') {
+                avatar.src = imageData;
+            } else {
+                avatar.innerHTML = `<img src="${imageData}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+            }
+        });
+    };
+    
+    // Function to get current user avatar for chat system
+    window.getUserAvatar = function(userId) {
+        const avatarKey = getUserAvatarKey(userId);
+        return localStorage.getItem(avatarKey);
+    };
+
+    // Logout functionality
+    window.logout = function() {
+        console.log("🚪 Logging out...");
+        sessionStorage.clear();
+        window.location.href = '../login.html';
+    };
+
+    // Multiple logout buttons functionality
+    const logoutBtns = [
+        document.getElementById('logoutBtn'),
+        document.getElementById('userMenuLogout')
+    ];
+    logoutBtns.forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    sessionStorage.clear();
+                    window.location.href = '../index.html';
+                }
+            });
+        }
+    });
+
+    // Search functionality
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('Searching for: ' + this.value);
+                this.value = '';
+            }
+        });
+    }
+
+    // Card hover effects
+    const cards = document.querySelectorAll('.dashboard-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+        });
+    });
+
+    // Initialize sidebar based on screen size
+    function initializeSidebar() {
+        const mainContent = document.getElementById('mainContent');
+        if (window.innerWidth <= 768) {
+            if (sidebar) sidebar.classList.add('collapsed');
+            if (mainContent) mainContent.style.marginLeft = '0';
+        } else {
+            if (sidebar) sidebar.classList.remove('collapsed');
+            if (mainContent) mainContent.style.marginLeft = '250px';
+        }
+    }
+    
+    initializeSidebar();
+    window.addEventListener('resize', initializeSidebar);
+
+    // ===== ENROLLMENT FUNCTIONALITY =====
+    
+    // Enrollment form toggle
+    window.toggleEnrollmentForm = function() {
+        const container = document.getElementById('enrollmentContainer');
+        const btn = document.querySelector('.enroll-btn');
+        
+        if (container && btn) {
+            if (container.classList.contains('active')) {
+                container.classList.remove('active');
+                btn.innerHTML = '<i class="fas fa-plus-circle"></i>Enroll Now';
+            } else {
+                container.classList.add('active');
+                btn.innerHTML = '<i class="fas fa-minus-circle"></i>Hide Form';
+            }
+        }
+    };
+
+    // Enrollment form functionality
+    const enrollmentForm = document.getElementById('enrollmentForm');
+    if (enrollmentForm) {
+        // Program selection
+        const programRadios = document.querySelectorAll('input[name="program"]');
+        programRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.selection-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                this.closest('.selection-card').classList.add('selected');
+                
+                const selectedProgram = document.getElementById('selectedProgram');
+                if (selectedProgram) {
+                    selectedProgram.textContent = this.value;
+                    selectedProgram.classList.remove('not-selected');
+                }
+            });
+        });
+
+        // Year level selection
+        const yearRadios = document.querySelectorAll('input[name="yearLevel"]');
+        yearRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.year-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                this.closest('.year-card').classList.add('selected');
+                
+                const selectedYear = document.getElementById('selectedYear');
+                if (selectedYear) {
+                    selectedYear.textContent = this.value;
+                    selectedYear.classList.remove('not-selected');
+                }
+            });
+        });
+
+        // Term selection
+        const termRadios = document.querySelectorAll('input[name="academicTerm"]');
+        termRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.term-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                this.closest('.term-card').classList.add('selected');
+                
+                const selectedTerm = document.getElementById('selectedTerm');
+                if (selectedTerm) {
+                    selectedTerm.textContent = this.value;
+                    selectedTerm.classList.remove('not-selected');
+                }
+            });
+        });
+
+        // Form submission
+        enrollmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const program = document.querySelector('input[name="program"]:checked');
+            const year = document.querySelector('input[name="yearLevel"]:checked');
+            const term = document.querySelector('input[name="academicTerm"]:checked');
+            
+            if (!program || !year || !term) {
+                alert('Please select all required fields: Program, Year Level, and Academic Term.');
+                return;
+            }
+            
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.classList.add('show');
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                setTimeout(() => {
+                    if (window.toggleEnrollmentForm) {
+                        window.toggleEnrollmentForm();
+                    }
+                    successMessage.classList.remove('show');
+                }, 3000);
+            }
+        });
+    }
+
+    // Reset enrollment form
+    window.resetForm = function() {
+        const enrollmentForm = document.getElementById('enrollmentForm');
+        if (enrollmentForm) {
+            enrollmentForm.reset();
+            
+            document.querySelectorAll('.selection-card, .year-card, .term-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const summaryElements = ['selectedProgram', 'selectedYear', 'selectedTerm'];
+            summaryElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = 'Not selected';
+                    element.classList.add('not-selected');
+                }
+            });
+            
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.classList.remove('show');
+            }
+        }
+    };
+    
+    // ===== INITIALIZE EVERYTHING =====
+    
+    // Initialize the dashboard
+    initializeDashboard();
+    
+    // Add periodic auth check
+    setInterval(() => {
+        if (!checkAuthentication()) {
+            console.log("🔒 Auth check failed, redirecting...");
+            window.location.href = '../login.html';
+        }
+    }, 60000); // Check every minute
+    
+    console.log("✅ Complete dashboard handler loaded");
+});
+
+// ===== PROFILE PAGE FUNCTIONALITY =====
+// This runs separately for profile-specific features
+
+// Function to show temporary messages
+function showTempMessage(message, type = 'info') {
+    let messageEl = document.getElementById('temp-message');
+    if (!messageEl) {
+        messageEl = document.createElement('div');
+        messageEl.id = 'temp-message';
+        messageEl.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+        document.body.appendChild(messageEl);
+    }
+    
+    messageEl.textContent = message;
+    switch(type) {
+        case 'success':
+            messageEl.style.backgroundColor = '#28a745';
+            break;
+        case 'error':
+            messageEl.style.backgroundColor = '#dc3545';
+            break;
+        default:
+            messageEl.style.backgroundColor = '#007bff';
+    }
+    
+    messageEl.style.opacity = '1';
+    
+    setTimeout(() => {
+        messageEl.style.opacity = '0';
+    }, 3000);
+}
+
+// Function to update all user displays
+function updateAllUserDisplays(userData) {
+    const sidebarName = document.querySelector('.sidebar .user-info h3');
+    if (sidebarName && userData.displayName) {
+        sidebarName.textContent = userData.displayName;
+    }
+    
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const userMenuName = document.getElementById('userMenuName');
+    const userMenuEmail = document.getElementById('userMenuEmail');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    
+    if (userNameDisplay && userData.displayName) {
+        userNameDisplay.textContent = userData.displayName;
+    }
+    
+    if (userMenuName && userData.displayName) {
+        userMenuName.textContent = userData.displayName;
+    }
+    
+    if (userMenuEmail && userData.email) {
+        userMenuEmail.textContent = userData.email;
+    }
+    
+    if (welcomeMessage && userData.displayName) {
+        welcomeMessage.textContent = `Welcome, ${userData.displayName.split(' ')[0]}!`;
+    }
+    
+    const allNameDisplays = document.querySelectorAll('[data-user-name]');
+    allNameDisplays.forEach(element => {
+        if (userData.displayName) {
+            element.textContent = userData.displayName;
+        }
+    });
+    
+    const allEmailDisplays = document.querySelectorAll('[data-user-email]');
+    allEmailDisplays.forEach(element => {
+        if (userData.email) {
+            element.textContent = userData.email;
+        }
+    });
+}
+
+        
+
+    </script>
+    <script src="../authCheck.js" defer></script>
+    <script src="studentdashboard.js" defer></script>
+    <script src="../chat.js" defer></script>
+    <script src="../profile.js"></script>
+    <script src="enrollment.js"></script>
+    
+</body>
+</html>

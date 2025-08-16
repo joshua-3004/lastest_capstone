@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gardner College Cainta - Online Enrollment System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c5282;
+            --secondary: #4299e1;
+            --accent: #ebf8ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7fafc;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df0c42e1-134d-41bf-b778-651a1506996b.png" alt="Gardner College Cainta logo featuring a traditional academic shield with laurel wreath surrounding an open book" class="h-12 w-12 rounded-md">
+                <div>
+                    <h1 class="text-xl font-bold">Gardner College Cainta</h1>
+                    <p class="text-sm text-gray-200">Online Enrollment System</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#features" class="text-white hover:text-gray-200">Features</a>
+                <a href="#how-it-works" class="text-white hover:text-gray-200">How It Works</a>
+                <button id="loginBtn" class="bg-white text-blue-800 px-4 py-2 rounded-md font-medium hover:bg-gray-100 transition">Login</button>
+            </div>
+            <button class="md:hidden text-white" id="mobileMenuBtn">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden bg-white shadow-lg absolute w-full z-10">
+        <div class="p-4 space-y-4">
+            <a href="#features" class="block px-4 py-2 hover:bg-gray-100 rounded">Features</a>
+            <a href="#how-it-works" class="block px-4 py-2 hover:bg-gray-100 rounded">How It Works</a>
+            <button id="mobileLoginBtn" class="w-full bg-blue-800 text-white px-4 py-2 rounded-md font-medium">Login</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Streamlined Online Enrollment</h1>
+                <p class="text-xl mb-8">Experience a seamless enrollment process designed for Gardner College Cainta students.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-blue-800 px-6 py-3 rounded-md font-medium hover:bg-gray-100 transition">Get Started</button>
+                    <button class="border-2 border-white text-white px-6 py-3 rounded-md font-medium hover:bg-white hover:text-blue-800 transition">Learn More</button>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8d549d2b-fc1b-4b36-afd9-4da7223dd214.png" alt="Illustration of students using digital devices to access an academic portal, with floating UI elements showing course registration, grade tracking, and payment processing" class="w-full rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Key Features</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-user-plus text-2xl text-blue-800"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Easy Registration</h3>
+                    <p class="text-gray-600">Simple and secure account setup for new and returning students with verification process.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-book-open text-2xl text-green-800"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Course Management</h3>
+                    <p class="text-gray-600">Browse and enroll in courses with prerequisites checking and schedule visualization.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-credit-card text-2xl text-purple-800"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Payment Integration</h3>
+                    <p class="text-gray-600">Secure payment processing with multiple options and instant receipt generation.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-graduation-cap text-2xl text-yellow-800"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Academic Records</h3>
+                    <p class="text-gray-600">Access transcripts, grades, and degree progress reports anytime, anywhere.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-comments text-2xl text-red-800"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Communication Hub</h3>
+                    <p class="text-gray-600">Integrated messaging for student-faculty communication and announcements.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-mobile-alt text-2xl text-indigo-800"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mobile Friendly</h3>
+                    <p class="text-gray-600">Fully responsive design that works seamlessly on all devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Simple Enrollment Process</h2>
+            
+            <div class="relative">
+                <div class="hidden lg:block absolute h-full w-0.5 bg-gray-300 left-1/2"></div>
+                
+                <div class="space-y-12">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col lg:flex-row items-center">
+                        <div class="lg:w-1/2 lg:pr-12 mb-6 lg:mb-0 lg:text-right">
+                            <div class="bg-blue-100 inline-flex w-12 h-12 rounded-full items-center justify-center mb-4 lg:ml-auto">
+                                <span class="text-blue-800 font-bold">1</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Create Your Account</h3>
+                            <p class="text-gray-600">Sign up with your student information and verify your identity through the college registration system.</p>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/93eccbed-6fff-423c-8fb0-a2747167884d.png" alt="Screenshot of registration form with fields for student ID, personal information, and verification steps" class="w-full rounded-lg shadow-md">
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="flex flex-col lg:flex-row items-center">
+                        <div class="lg:w-1/2 lg:order-2 lg:pl-12 mb-6 lg:mb-0">
+                            <div class="bg-green-100 inline-flex w-12 h-12 rounded-full items-center justify-center mb-4">
+                                <span class="text-green-800 font-bold">2</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Select Your Courses</h3>
+                            <p class="text-gray-600">Browse available courses, check prerequisites, and build your ideal semester schedule with our visual planner.</p>
+                        </div>
+                        <div class="lg:w-1/2 lg:order-1">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/69ae04c5-1920-4322-81fb-56e3b13800b2.png" alt="Course selection interface showing available classes, schedules, and a calendar view of selected courses" class="w-full rounded-lg shadow-md">
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="flex flex-col lg:flex-row items-center">
+                        <div class="lg:w-1/2 lg:pr-12 mb-6 lg:mb-0 lg:text-right">
+                            <div class="bg-purple-100 inline-flex w-12 h-12 rounded-full items-center justify-center mb-4 lg:ml-auto">
+                                <span class="text-purple-800 font-bold">3</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Complete Payment</h3>
+                            <p class="text-gray-600">Securely pay your tuition and fees with multiple payment options and instant confirmation.</p>
+                        </div>
+                        <div class="lg:w-1/2">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64aec9c7-be0b-4057-84b4-e40a60c0b158.png" alt="Payment page showing total fees due with credit card and online banking payment options" class="w-full rounded-lg shadow-md">
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="flex flex-col lg:flex-row items-center">
+                        <div class="lg:w-1/2 lg:order-2 lg:pl-12 mb-6 lg:mb-0">
+                            <div class="bg-yellow-100 inline-flex w-12 h-12 rounded-full items-center justify-center mb-4">
+                                <span class="text-yellow-800 font-bold">4</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Access Academic Portal</h3>
+                            <p class="text-gray-600">Gain immediate access to your enrolled courses, class materials, and communication tools.</p>
+                        </div>
+                        <div class="lg:w-1/2 lg:order-1">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/47cb9763-c85f-4eb2-a7fb-4663a3facf3b.png" alt="Dashboard view showing enrolled courses, upcoming assignments, and unread messages in the academic portal" class="w-full rounded-lg shadow-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800">Login to Your Account</h3>
+                    <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email or Student ID</label>
+                        <input type="text" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</div>
+                        <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <a href="#" class="text-sm text-blue-600 hover:underline mt-1 block">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-800 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Login
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">Don't have an account? <a href="#" class="text-blue-600 hover:underline">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Preview -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Student Dashboard Preview</h2>
+            
+            <div class="bg-gray-50 rounded-xl p-2 shadow-lg max-w-6xl mx-auto overflow-hidden">
+                <div class="bg-blue-800 text-white p-4 flex justify-between items-center">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2a7bff93-b24c-4a95-93c5-391963cc24c2.png" alt="Student profile picture showing diverse young adult in academic setting" class="w-8 h-8 rounded-full">
+                        <span class="font-medium">Student Dashboard</span>
+                    </div>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#" class="hover:text-blue-200">Home</a>
+                        <a href="#" class="hover:text-blue-200">Courses</a>
+                        <a href="#" class="hover:text-blue-200">Grades</a>
+                        <a href="#" class="hover:text-blue-200">Payments</a>
+                        <a href="#" class="hover:text-blue-200">Messages</a>
+                    </nav>
+                    <button class="md:hidden text-white">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Welcome Panel -->
+                    <div class="lg:col-span-3 bg-blue-100 rounded-lg p-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Welcome back, <span class="text-blue-800">John Doe</span></h3>
+                                <p class="text-gray-700">Bachelor of Science in Computer Science, 3rd Year</p>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex space-x-4">
+                                <span class="px-4 py-2 bg-white rounded-md text-blue-800 font-medium">Student ID: GC20230001</span>
+                                <span class="px-4 py-2 bg-white rounded-md text-gray-700 font-medium">Semester: 1 2023-2024</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Enrollment Status -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                            <div class="flex justify-between items-center mb-6">
+                                <h4 class="text-lg font-semibold">Current Enrollment</h4>
+                                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <!-- Course 1 -->
+                                <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                                    <div>
+                                        <h5 class="font-medium">CS 101 - Introduction to Programming</h5>
+                                        <p class="text-sm text-gray-500">MWF 8:00 AM - 9:30 AM | Room A101</p>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Enrolled</span>
+                                </div>
+                                
+                                <!-- Course 2 -->
+                                <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                                    <div>
+                                        <h5 class="font-medium">MATH 105 - Calculus I</h5>
+                                        <p class="text-sm text-gray-500">TTh 10:00 AM - 11:30 AM | Room B205</p>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Enrolled</span>
+                                </div>
+                                
+                                <!-- Course 3 -->
+                                <div class="flex justify-between items-center p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                                    <div>
+                                        <h5 class="font-medium">ENG 101 - Composition I</h5>
+                                        <p class="text-sm text-gray-500">Online - Asynchronous</p>
+                                    </div>
+                                    <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Pending Payment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                            <h4 class="text-lg font-semibold mb-6">Quick Actions</h4>
+                            
+                            <div class="space-y-4">
+                                <button class="w-full flex items-center space-x-3 p-3 text-left bg-blue-50 text-blue-800 rounded-md hover:bg-blue-100">
+                                    <div class="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-book text-blue-800"></i>
+                                    </div>
+                                    <span>Register for Courses</span>
+                                </button>
+                                
+                                <button class="w-full flex items-center space-x-3 p-3 text-left bg-green-50 text-green-800 rounded-md hover:bg-green-100">
+                                    <div class="bg-green-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-file-invoice-dollar text-green-800"></i>
+                                    </div>
+                                    <span>Make a Payment</span>
+                                </button>
+                                
+                                <button class="w-full flex items-center space-x-3 p-3 text-left bg-purple-50 text-purple-800 rounded-md hover:bg-purple-100">
+                                    <div class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-graduation-cap text-purple-800"></i>
+                                    </div>
+                                    <span>View Grades</span>
+                                </button>
+                                
+                                <button class="w-full flex items-center space-x-3 p-3 text-left bg-red-50 text-red-800 rounded-md hover:bg-red-100">
+                                    <div class="bg-red-100 w-10 h-10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-comment-alt text-red-800"></i>
+                                    </div>
+                                    <span>Contact Advisor</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upcoming Deadlines -->
+                    <div>
+                        <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                            <div class="flex justify-between items-center mb-6">
+                                <h4 class="text-lg font-semibold">Upcoming Deadlines</h4>
+                                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                                    <p class="text-sm text-gray-500">September 15, 2023</p>
+                                    <h5 class="font-medium">Last day to add classes</h5>
+                                </div>
+                                
+                                <div class="p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                                    <p class="text-sm text-gray-500">September 22, 2023</p>
+                                    <h5 class="font-medium">Payment deadline for enrolled courses</h5>
+                                </div>
+                                
+                                <div class="p-3 border border-gray-200 rounded-md hover:bg-gray-50">
+                                    <p class="text-sm text-gray-500">October 10, 2023</p>
+                                    <h5 class="font-medium">Midterm examinations begin</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Messages -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-lg shadow-sm p-6 h-full">
+                            <div class="flex justify-between items-center mb-6">
+                                <h4 class="text-lg font-semibold">Recent Messages</h4>
+                                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</button>
+                            </div>
+                            
+                            <div class="divide-y divide-gray-200">
+                                <div class="py-3 flex space-x-4 hover:bg-gray-50 cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d3ed7cdc-9bde-4402-b8a0-0e65e1e0e5fb.png" alt="Faculty profile photo of Dr. Smith with glasses and professional attire" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <div class="flex justify-between">
+                                            <h5 class="font-medium">Dr. Smith</h5>
+                                            <span class="text-xs text-gray-500">2 days ago</span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">Welcome to CS 101! Please check the syllabus in the course portal...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="py-3 flex space-x-4 hover:bg-gray-50 cursor-pointer">
+                                    <div class="bg-gray-200 w-10 h-10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-university text-gray-600"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between">
+                                            <h5 class="font-medium">Registrar's Office</h5>
+                                            <span class="text-xs text-gray-500">1 week ago</span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">Important: Verify your enrollment details before the add/drop deadline...</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="py-3 flex space-x-4 hover:bg-gray-50 cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/22831f25-bcb0-4821-8284-7a012e409fe7.png" alt="Financial aid officer profile photo welcoming student" class="w-10 h-10 rounded-full">
+                                    <div>
+                                        <div class="flex justify-between">
+                                            <h5 class="font-medium">Financial Aid</h5>
+                                            <span class="text-xs text-gray-500">2 weeks ago</span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm">Your scholarship application has been approved. View details in your student portal...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Gardner College Cainta</h3>
+                    <p class="text-gray-400">Providing quality education for over 30 years in the heart of Rizal Province.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Student Portal</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Academic Calendar</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Course Catalog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Tuition & Fees</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact IT Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Feedback</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 College St., Cainta, Rizal</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i class="fas fa-phone"></i>
+                            <span>(02) 8888-9999</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-400">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@gardnercollege.edu.ph</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Gardner College Cainta. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Login Modal
+        const loginBtn = document.getElementById('loginBtn');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const loginModal = document.getElementById('loginModal');
+        
+        // Show modal from desktop button
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('hidden');
+        });
+        
+        // Show modal from mobile button
+        mobileLoginBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            loginModal.classList.remove('hidden');
+        });
+        
+        // Close modal
+        closeModalBtn.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking outside
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.add('hidden');
+            }
+        });
+        
+        // Form submission
+        const loginForm = document.getElementById('loginForm');
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // In a real application, you would send this to your backend for authentication
+            console.log('Login attempt:', { email, password });
+            
+            // For demo purposes, we'll just close the modal
+            loginModal.classList.add('hidden');
+            
+            // Show a success message (in reality, this would depend on the response from your backend)
+            alert('Login functionality would connect to authentication system in production');
+        });
+    </script>
+</body>
+</html>
